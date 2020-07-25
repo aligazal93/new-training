@@ -12,7 +12,7 @@
             @endif
 
                 <h4 class="text-center mb-10">Details of Product . {{$product->name}} </h4>
-                
+                <p> <img src="{{ asset('uploads/products/'.$product->image) }}" > </p>                
                 <p> Product Name : <strong>  {{$product->name}} </strong> </p>
                 <p> Product Description : <strong>  {{$product->details}} </strong> </p>
                 <p> Product Price : <strong>  {{$product->price}} </strong> </p>

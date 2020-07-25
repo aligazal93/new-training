@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
-
+use Hash;
 class userController extends Controller
 {
 
@@ -29,13 +29,20 @@ class userController extends Controller
             'name' => 'required|unique:users',
             'email' => 'email:rfc,dns',
             'password' => 'required',
-
+            'image' => 'required|image',
         ]);
+
+        $image = $request->image;
+        $image_new_name = time().$image->getClientOriginalName();
+        $image->move('uploads/users',$image_new_name);
+
+
 
         $user = new User();
         $user -> name = request('name');
         $user -> email = request('email');
-        $user -> password = request('password');
+        $user -> image = $image_new_name;
+        $user -> password = Hash::make( request('password'));
         $user->save();
         return redirect('users');
     }
@@ -52,11 +59,20 @@ class userController extends Controller
     public function update(Request $request,User $user)
     {
         $data = request()->validate([
-            'name' => 'required|unique:users',
+            'name' => 'required|unique:users,name,'.$user->id,
             'email' => 'email:rfc,dns',
             'password' => 'required',
-
         ]);
+
+               
+        if ($request->hasFile('image')) {
+            $image = $request->image;
+            $image_new_name = time().$image->getClientOriginalName();
+            $image->move('uploads/users',$image_new_name);
+            $user -> image = $image_new_name;
+            $user->save();
+        }
+
         $user-> update($data);
         return redirect('users/'.$user->id )-> with('message' , 'Thank You . You ara Updated a user successfully' ); ;
 

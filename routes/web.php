@@ -15,6 +15,15 @@ Route::get('/', function () {
     return view('begin');
 });
 
+
+// Route::get('/profile.edit', function () {
+//     return view('profile.edit');
+// });
+
+Route::get('/profile/edit', 'ProfileController@edit');
+Route::patch('/profile/update', 'ProfileController@update');
+
+
 Route::get('/begin', function () {
     return view('begin');
 });

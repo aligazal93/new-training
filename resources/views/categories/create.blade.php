@@ -10,12 +10,14 @@
                   </div>
             @endif
          <h3 class="text-center">  Create New Category </h3>
-         <form action="categories" method="post">
+         <form action="categories" method="post" enctype="multipart/form-data">
          @csrf
          @if($errors->has('name') )
                 <p class="alert alert-danger"> {{$errors->first('name')}}  </p>
                 @endif
             <input class="form-control mb-2" type="text" placeholder=" Enter The Name Of Category" name="name"  value="{{old('name')}}" > 
+            <input class="form-control mb-2" type="file"  name="image"> 
+        
             <button type="submit" class="btn btn-success"> Add New Category </button>
          </form>
     

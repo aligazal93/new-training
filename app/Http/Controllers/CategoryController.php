@@ -25,9 +25,17 @@ class CategoryController extends Controller
         $categories = Category::all();
         $data = request()->validate([
             'name' => 'required|unique:categories',
+            'image' =>'required|image',
         ]);
+
+        $image = $request->image;
+        $image_new_name = time().$image->getClientOriginalName();
+        $image->move('uploads/categories',$image_new_name);
+
+
         $category = new Category();
         $category -> name = request('name');
+        $category -> image = $image_new_name;
         $category->save();
         return redirect('categories');
     }
@@ -36,13 +44,6 @@ class CategoryController extends Controller
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Category $category)
     {
         $categories = Category::all();
@@ -50,12 +51,21 @@ class CategoryController extends Controller
     }
     public function update(Request $request, Category $category)
     {
-        $categories = Category::all();
         $data = request()->validate([
-            'name' => 'required|unique:categories',
+            'name' => 'required|unique:categories,name,'.$category->id,
         ]);
+       
+        if ($request->hasFile('image')) {
+            $image = $request->image;
+            $image_new_name = time().$image->getClientOriginalName();
+            $image->move('uploads/categories',$image_new_name);
+            $category -> image = $image_new_name;
+            $category->save();
+        }
+
+        
         $category->update($data);
-        return redirect('categories/'.$category->id )-> with('message' , 'Thank You . You ara Updated a Category successfully' ); ;
+        return redirect('categories')-> with('message' , 'Thank You . You ara Updated a Category successfully' ); ;
 
     }
     public function destroy(Category $category)

@@ -7,6 +7,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link type="text/css" rel="stylesheet" href="{{mix('css/app.css') }}">
+    <link type="text/css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
@@ -15,6 +19,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -33,9 +38,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <a class="nav-link" href="{{url('products')}}"> Product </a>
-                        <a class="nav-link" href="{{url('users')}}"> Users </a>
-                        <a class="nav-link" href="{{url('categories')}}"> Category </a>
+                        <a class="nav-link" href="{{url('products')}}"> <i class='fa fa-shopping-cart'></i> Product </a>
+                        <!-- <a class="nav-link" href="{{url('users')}}"> <i class='fa fa-user'></i> Users </a> -->
+                        <a class="nav-link" href="{{url('categories')}}"><i class='fa fa-tag'></i> Category </a>
 
 
 
@@ -65,6 +70,8 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+                                    <a class="nav-link text-center" href="{{url('profile/edit')}}"> Edit Your Profile </a>
+
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

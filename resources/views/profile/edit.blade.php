@@ -5,7 +5,7 @@
     <div class="row">
     <div class="col-sm-12">
          <h3 class="text-center">  Edit Your Profile </h3>
-         <form action="{{url('/users/'.$user->id)}}" method="post" enctype="multipart/form-data">
+         <form action="{{url('/profile/update')}}" method="post" enctype="multipart/form-data">
          @method('PATCH')
          @csrf
          <img src="{{ asset('uploads/users/'.$user->image ) }}" class="img-responsive img-thumbnil" style="width:150px;height:150px;border-radius:150px;display: block;margin: 0 auto;margin-bottom:25px;"  alt="">

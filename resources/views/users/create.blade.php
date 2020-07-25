@@ -5,7 +5,7 @@
     <div class="row">
     <div class="col-sm-12">
          <h3 class="text-center">  Create New User </h3>
-         <form action="users" method="post">
+         <form action="users" method="post" enctype="multipart/form-data">
          @csrf
             @if($errors->has('name') )
              <p class="alert alert-danger"> {{$errors->first('name')}}  </p>
@@ -19,6 +19,8 @@
              <p class="alert alert-danger"> {{$errors->first('password')}}  </p>
             @endif           
             <input class="form-control mb-2" type="password" placeholder=" Enter Your Password" name="password"  value="{{old('password')}}">
+            <input class="form-control mb-2" type="file"  name="image">
+       
             <button type="submit" class="btn btn-success"> Create </button>
          </form>
     

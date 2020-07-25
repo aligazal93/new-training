@@ -13,7 +13,7 @@
 
 
           <h4 class="text-center mb-10">Add New Product</h4>
-            <form action="products" method="post">
+            <form action="products" method="post" enctype="multipart/form-data">
             @csrf
 
                 @if($errors->has('name') )
@@ -48,6 +48,10 @@
                     <option value="{{$category->id}}"> {{$category->name}} </option>
                 @endforeach    
                 </select>
+
+                <input type="file" class="form-control mb-1" name='image' >
+
+                
 
 
                 <button type="submit" class="btn btn-success"> Add New Product </button>
