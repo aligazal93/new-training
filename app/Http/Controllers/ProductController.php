@@ -101,12 +101,23 @@ class ProductController extends Controller
     }
     public function destroy(Product $product)
     {
-        $product->delete();
-        return redirect('products')
-        -> with('message' , 'Thank You . You ara Deleting a Customer successfully' );
 
-        $destinationPath = 'uploads/products/';
-        File::delete($destinationPath.'/$product->image');
+      $image = '/uploads/products/'.$product->image;
+      $path = str_replace('\\' , '/' , public_path());
+        // dd($path.$image);
+        if(file_exists($path.$image))
+        {
+            unlink($path.$image);
+            $product->delete();
+            return redirect('products')
+            -> with('message' , 'Thank You . You ara Deleting a Customer successfully' );
+        }
+        else
+        {
+            $product->delete();
+            return redirect('products')
+            -> with('message' , 'Thank You . You ara Deleting a Customer successfully' );
+        }
 
 
     }

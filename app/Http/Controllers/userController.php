@@ -79,9 +79,25 @@ class userController extends Controller
     }
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect('users')
-            -> with('message' , 'Thank You . You ara Deleting a user successfully' );
+
+        $image = '/uploads/users/'.$user->image;
+        $path = str_replace('\\' , '/' , public_path());
+          // dd($path.$image);
+          if(file_exists($path.$image))
+          {
+              unlink($path.$image);
+              $user->delete();
+              return redirect('users')
+                  -> with('message' , 'Thank You . You ara Deleting a User successfully' );
+          }
+          else
+          {
+            $user->delete();
+            return redirect('users')
+                -> with('message' , 'Thank You . You ara Deleting a User successfully' );
+    
+          }
+
 
     }
 }

@@ -70,9 +70,24 @@ class CategoryController extends Controller
     }
     public function destroy(Category $category)
     {
-        $category->delete();
-        return redirect('categories')
-            -> with('message' , 'Thank You . You ara Deleting a category successfully' );
+
+        $image = '/uploads/categories/'.$category->image;
+        $path = str_replace('\\' , '/' , public_path());
+          // dd($path.$image);
+          if(file_exists($path.$image))
+          {
+              unlink($path.$image);
+              $category->delete();
+              return redirect('categories')
+                  -> with('message' , 'Thank You . You ara Deleting a category successfully' );
+          }
+          else
+          {
+            $category->delete();
+            return redirect('categories')
+                -> with('message' , 'Thank You . You ara Deleting a category successfully' );
+    
+          }
 
     }
 }
